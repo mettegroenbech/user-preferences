@@ -22,11 +22,12 @@ namespace PreferenceManagement.API
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<UserPreference>> GetSolutionPreferences(string solution, string userId)
+        public async Task<IEnumerable<UserPreferenceResponse>> GetSolutionPreferences(string solution, string userId)
         {
             return await _context.UserPreferences
                 .Include(x => x.Preference)
-                .Where(x => x.Preference.Solution == solution && x.UserId == userId).ToListAsync();
+                .Where(x => x.Preference.Solution == solution && x.UserId == userId)
+                .Select(x => new UserPreferenceResponse { Id = x.Id, Key = x.Preference.Key, Value = x.Value, UserId = x.UserId }).ToListAsync();
         }
 
         public async Task AddUserPreference(UserPreference preference)

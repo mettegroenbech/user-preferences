@@ -53,8 +53,8 @@ namespace PreferenceManagement.API.Controllers
         }
 
         // [Authorize]
-        [HttpPost("Solution/{solution}/{userId}")]
-        public async Task<IEnumerable<UserPreference>> GetUserPreferences([FromRoute] string solution, [FromRoute] string userId)
+        [HttpGet("Solution/{solution}/{userId}")]
+        public async Task<IEnumerable<UserPreferenceResponse>> GetUserPreferences([FromRoute] string solution, [FromRoute] string userId)
         {
             return await _preferenceRepository.GetSolutionPreferences(solution, userId);
         }

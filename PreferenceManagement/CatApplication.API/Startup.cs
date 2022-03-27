@@ -1,15 +1,20 @@
+using CatApplication.API.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using PreferenceManagement.API.Infrastructure.Configurations;
-using PreferenceManagement.API.Infrastructure.Database;
-using System.Text.Json.Serialization;
+using PreferenceManagement.API.Infrastructure.ExternalServices;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace PreferenceManagement.API
+namespace CatApplication.API
 {
     public class Startup
     {
@@ -23,24 +28,17 @@ namespace PreferenceManagement.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            });
 
+            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PreferenceManagement.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CatApplication.API", Version = "v1" });
             });
 
             services.Configure<ApplicationOptions>(Configuration);
 
-            services.AddDbContext<PreferenceContext>(options => 
-                options
-                    .UseNpgsql(Configuration.GetConnectionString(nameof(PreferenceContext)))
-                    .UseSnakeCaseNamingConvention());
-
-            services.AddScoped<IPreferenceRepository, PreferenceRepository>();
+            services.AddScoped<ICatService, CatService>();
+            services.AddScoped<IPreferenceManagementService, PreferenceManagementService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +55,7 @@ namespace PreferenceManagement.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "PreferenceManagement.API v1");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CatApplication.API v1");
                     c.RoutePrefix = "";
                 });
             }
