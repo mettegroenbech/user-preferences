@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PreferenceManagement.API.Infrastructure.Database;
 
-namespace PreferenceManagement.API.Migrations
+namespace PreferenceManagement.API.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(PreferenceContext))]
     partial class PreferenceContextModelSnapshot : ModelSnapshot
@@ -19,7 +19,7 @@ namespace PreferenceManagement.API.Migrations
                 .HasAnnotation("ProductVersion", "5.0.15")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-            modelBuilder.Entity("PreferenceManagement.API.Domain.Entities.Preference", b =>
+            modelBuilder.Entity("PreferenceManagement.API.Domain.Entities.PreferenceDefinition", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,32 +40,32 @@ namespace PreferenceManagement.API.Migrations
                         .HasColumnName("solution");
 
                     b.HasKey("Id")
-                        .HasName("pk_preferences");
+                        .HasName("pk_preference_definitions");
 
                     b.HasIndex("Key", "Solution")
                         .IsUnique()
-                        .HasDatabaseName("ix_preferences_key_solution");
+                        .HasDatabaseName("ix_preference_definitions_key_solution");
 
-                    b.ToTable("preferences");
+                    b.ToTable("preference_definitions");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("042fc127-6690-4bbe-b6c7-7ad077f5c75f"),
+                            Id = new Guid("fa2a0602-31b2-40ee-a622-490799bb81fb"),
                             Key = "DARK_MODE",
                             Level = "Solution",
                             Solution = "ExampleSolution"
                         },
                         new
                         {
-                            Id = new Guid("40e5b4b2-19f4-4415-a9e2-509f39539e04"),
+                            Id = new Guid("e9f4ae48-2538-45f1-b052-85ef4b73f54a"),
                             Key = "EMAIL_NOTIFICATIONS",
                             Level = "Solution",
                             Solution = "ExampleSolution"
                         },
                         new
                         {
-                            Id = new Guid("2790c73d-3e15-4696-884d-c77e4e8d5d82"),
+                            Id = new Guid("3f92b025-bd0f-4695-8aa3-a5bbfaa66031"),
                             Key = "ANALYTICS_CONSENT",
                             Level = "Universal"
                         });
@@ -105,10 +105,10 @@ namespace PreferenceManagement.API.Migrations
 
             modelBuilder.Entity("PreferenceManagement.API.Domain.Entities.UserPreference", b =>
                 {
-                    b.HasOne("PreferenceManagement.API.Domain.Entities.Preference", "Preference")
+                    b.HasOne("PreferenceManagement.API.Domain.Entities.PreferenceDefinition", "Preference")
                         .WithMany()
                         .HasForeignKey("PreferenceId")
-                        .HasConstraintName("fk_user_preferences_preferences_preference_id")
+                        .HasConstraintName("fk_user_preferences_preference_definitions_preference_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

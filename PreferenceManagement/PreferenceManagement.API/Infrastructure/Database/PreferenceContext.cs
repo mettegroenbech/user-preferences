@@ -15,26 +15,26 @@ namespace PreferenceManagement.API.Infrastructure.Database
         }
 
         public DbSet<UserPreference> UserPreferences { get; set; }
-        public DbSet<Preference> Preferences { get; set; }
+        public DbSet<PreferenceDefinition> PreferenceDefinitions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Preference>().HasData(
-                new Preference
+            modelBuilder.Entity<PreferenceDefinition>().HasData(
+                new PreferenceDefinition
                 {
                     Id = Guid.NewGuid(),
                     Key = "DARK_MODE",
                     Level = Level.Solution,
                     Solution = "ExampleSolution"
                 },                
-                new Preference
+                new PreferenceDefinition
                 {
                     Id = Guid.NewGuid(),
                     Key = "EMAIL_NOTIFICATIONS",
                     Level = Level.Solution,
                     Solution = "ExampleSolution"
                 },
-                new Preference
+                new PreferenceDefinition
                 {
                     Id = Guid.NewGuid(),
                     Key = "ANALYTICS_CONSENT",

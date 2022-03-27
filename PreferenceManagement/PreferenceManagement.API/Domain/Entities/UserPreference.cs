@@ -11,6 +11,6 @@ namespace PreferenceManagement.API.Domain.Entities
         public string Value { get; set; }
         public Guid PreferenceId { get; set; }
 
-        public Preference Preference { get; set; }
+        public PreferenceDefinition Preference { get; set; }
     }
 }

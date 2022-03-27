@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace PreferenceManagement.API.Domain.Entities
 {
     [Index(nameof(Key), nameof(Solution), IsUnique = true)]
-    public class Preference
+    public class PreferenceDefinition
     {
         public Guid Id { get; set; }
         public string Key { get; set; }

@@ -21,7 +21,7 @@ namespace PreferenceManagement.API.Infrastructure.ExternalServices
 
         public async Task<List<UserPreference>> GetUserPreference(string user)
         {
-            var route = $"/Preferences/Solution/{Constants.ApplicationName}/{user}";
+            var route = $"/UserPreferences/{Constants.ApplicationName}/{user}";
             
             var url = new Uri(string.Concat(_options.ExternalServices.PreferenceManagementService.BaseAddress, route));
             

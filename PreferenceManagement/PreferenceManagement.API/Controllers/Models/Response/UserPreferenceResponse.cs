@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PreferenceManagement.API
+namespace PreferenceManagement.API.Controllers.Models.Response
 {
     public class UserPreferenceResponse
     {
