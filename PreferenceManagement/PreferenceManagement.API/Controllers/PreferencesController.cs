@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PreferenceManagement.API.Domain.Entities;
 using System;
@@ -37,6 +38,7 @@ namespace PreferenceManagement.API.Controllers
         }
 
         // [Authorize("update:solution")]
+        [Authorize]
         [HttpPost("Solution")]
         public async Task<OkResult> AddSolutionPreference([FromBody] Preference preference)
         {
